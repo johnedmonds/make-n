@@ -58,8 +58,17 @@
 /******/ 					"__wbindgen_json_serialize": function(p0i32,p1i32) {
 /******/ 						return installedModules["../pkg/math24wasm_bg.js"].exports["__wbindgen_json_serialize"](p0i32,p1i32);
 /******/ 					},
+/******/ 					"__wbindgen_string_new": function(p0i32,p1i32) {
+/******/ 						return installedModules["../pkg/math24wasm_bg.js"].exports["__wbindgen_string_new"](p0i32,p1i32);
+/******/ 					},
 /******/ 					"__wbindgen_object_drop_ref": function(p0i32) {
 /******/ 						return installedModules["../pkg/math24wasm_bg.js"].exports["__wbindgen_object_drop_ref"](p0i32);
+/******/ 					},
+/******/ 					"__wbindgen_string_get": function(p0i32,p1i32) {
+/******/ 						return installedModules["../pkg/math24wasm_bg.js"].exports["__wbindgen_string_get"](p0i32,p1i32);
+/******/ 					},
+/******/ 					"__wbindgen_rethrow": function(p0i32) {
+/******/ 						return installedModules["../pkg/math24wasm_bg.js"].exports["__wbindgen_rethrow"](p0i32);
 /******/ 					}
 /******/ 				}
 /******/ 			};
@@ -162,7 +171,7 @@
 /******/ 				promises.push(installedWasmModuleData);
 /******/ 			else {
 /******/ 				var importObject = wasmImportObjects[wasmModuleId]();
-/******/ 				var req = fetch(__webpack_require__.p + "" + {"../pkg/math24wasm_bg.wasm":"b0d958941dedd8eb9ccc"}[wasmModuleId] + ".module.wasm");
+/******/ 				var req = fetch(__webpack_require__.p + "" + {"../pkg/math24wasm_bg.wasm":"0f016d5e72abde3e1eee"}[wasmModuleId] + ".module.wasm");
 /******/ 				var promise;
 /******/ 				if(importObject instanceof Promise && typeof WebAssembly.compileStreaming === 'function') {
 /******/ 					promise = Promise.all([WebAssembly.compileStreaming(req), importObject]).then(function(items) {
