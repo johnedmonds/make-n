@@ -18,12 +18,12 @@ function removeNoResults() {
 document.getElementById("search").onclick = function() {
     removeNoResults();
     const request = parseInput();
-    const iterator = wasm.compute_match_iterator({target: request.target, numbers: request.numbers});
+    const iterator = wasm.compute_match_iterator(request.target, request.numbers);
     const resultsElement = document.getElementById("results");
     resultsElement.innerHTML = "";
     for (let i = 0; i < request.limit; i++) {
         const nextMatch = wasm.next_match(iterator);
-        if (nextMatch.length == 0) {
+        if (!nextMatch) {
             break;
         }
         const listItem = document.createElement("li");
