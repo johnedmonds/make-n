@@ -1,0 +1,12 @@
+.form ul {
+    list-style: none;
+}
+.form li{
+    margin-top: 8px;
+}
+.form label {
+    width: 90px;
+    display: inline-block;
+    text-align: right;
+    margin-right: 12px;
+}
