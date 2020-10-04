@@ -11,4 +11,12 @@ name = "math24"
 version = "0.1.0"
 dependencies = [
  "gen-iter",
+ "solver",
+]
+
+[[package]]
+name = "solver"
+version = "0.1.0"
+dependencies = [
+ "gen-iter",
 ]

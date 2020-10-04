@@ -9,3 +9,14 @@ Will output
 
     (4 * (5 + 1))
     (4 * (1 + 5))
+
+## Web Frontend
+
+```
+cd math24wasm
+wasm-pack build
+cd www
+npm run start
+```
+
+Use `npm run build` in `math24wasm/www` to create the dist folder.
