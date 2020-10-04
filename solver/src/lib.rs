@@ -28,8 +28,10 @@ impl Operator {
                     Operator::Divide => {
                         if right == 0 {
                             None
-                        } else {
+                        } else if left % right == 0 {
                             Some(left / right)
+                        } else {
+                            None
                         }
                     }
                 }
