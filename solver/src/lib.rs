@@ -1,5 +1,6 @@
 #![feature(generators)]
 
+use std::rc::Rc;
 use std::fmt;
 use std::fmt::{Display, Formatter};
 
@@ -13,7 +14,7 @@ pub enum Operator {
 
 #[derive(Clone)]
 pub enum Expression {
-    Operation(Box<Expression>, Operator, Box<Expression>),
+    Operation(Rc<Expression>, Operator, Rc<Expression>),
     Number(i32),
 }
 
@@ -78,8 +79,8 @@ impl Display for Expression {
 }
 
 fn make_operations(
-    expression1: Expression,
-    expression2: Expression,
+    expression1: Rc<Expression>,
+    expression2: Rc<Expression>,
 ) -> impl Iterator<Item = Expression> {
     vec![
         Operator::Add,
@@ -90,9 +91,9 @@ fn make_operations(
     .into_iter()
     .map(move |operator| {
         Expression::Operation(
-            Box::new(expression1.clone()),
+            expression1.clone(),
             operator,
-            Box::new(expression2.clone()),
+            expression2.clone(),
         )
     })
 }
@@ -102,16 +103,16 @@ fn assign_groups(elements: Vec<i32>) -> Box<dyn Iterator<Item = Expression>> {
         [] => Box::new(vec![].into_iter()),
         [element] => Box::new(vec![Expression::Number(*element)].into_iter()),
         [element1, element2] => Box::new(make_operations(
-            Expression::Number(*element1),
-            Expression::Number(*element2),
+            Rc::new(Expression::Number(*element1)),
+            Rc::new(Expression::Number(*element2)),
         )),
         _ => Box::new(gen_iter::GenIter(move || {
             for i in 1..elements.len() - 1 {
                 for j in i + 1..elements.len() {
-                    for left in assign_groups((&elements[0..i]).to_vec()) {
-                        for center in assign_groups((&elements[i..j]).to_vec()) {
-                            for right in assign_groups((&elements[j..]).to_vec()) {
-                                for center_right in make_operations(center.clone(), right) {
+                    for left in assign_groups((&elements[0..i]).to_vec()).map(Rc::new) {
+                        for center in assign_groups((&elements[i..j]).to_vec()).map(Rc::new) {
+                            for right in assign_groups((&elements[j..]).to_vec()).map(Rc::new) {
+                                for center_right in make_operations(center.clone(), right).map(Rc::new) {
                                     for left_center_right in
                                         make_operations(left.clone(), center_right)
                                     {
